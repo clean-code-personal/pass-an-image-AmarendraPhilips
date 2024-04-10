@@ -1,4 +1,6 @@
 #include "brightener.h"
+constexpr int maz_size = 255;
+constexpr int grayscale = 25;
 
 ImageBrightener::ImageBrightener(Image& inputImage) : m_inputImage(inputImage) {
 }
@@ -10,16 +12,16 @@ int ImageBrightener::BrightenWholeImage() {
 	int attenuatedPixelCount = 0;
 	for (int x = 0; x < m_inputImage.rows; x++) {
 		for (int y = 0; y < m_inputImage.columns; y++) {
-			if (m_inputImage.pixels[x * m_inputImage.columns + y] > (255 - 25)) {
+			if (m_inputImage.pixels[x * m_inputImage.columns + y] > (maz_size - grayscale)) {
 				++attenuatedPixelCount;
 				// m_inputImage.pixels[x * m_inputImage.rows + 1 + y] = 255;
-				m_inputImage.pixels[x * m_inputImage.columns + y] = 255;
+				m_inputImage.pixels[x * m_inputImage.columns + y] = maz_size;
 			}
 			else {
 				// --attenuatedPixelCount;
 				// m_inputImage.pixels[x * m_inputImage.columns + y] += 25;
 				int pixelIndex = x * m_inputImage.columns + y;
-				m_inputImage.pixels[pixelIndex] += 25;
+				m_inputImage.pixels[pixelIndex] += grayscale;
 				// m_inputImage.pixels[x * m_inputImage.rows + 1 + y] += 25;
 			}
 		}
